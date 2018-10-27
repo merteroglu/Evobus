@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "517725428759",
+    "firebase_url": "https://iot-project-49e41.firebaseio.com",
+    "project_id": "iot-project-49e41",
+    "storage_bucket": "iot-project-49e41.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517725428759:android:f19cc52946e1d975",
+        "android_client_info": {
+          "package_name": "com.merteroglu.ots"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "517725428759-cqkngfiloje9vsl59utt8j8m2oddeitj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.merteroglu.ots",
+            "certificate_hash": "d46b32ae313eb814f6328ee98ee96b34f7cd014e"
+          }
+        },
+        {
+          "client_id": "517725428759-9m60ks7n222u0bm5g71t6t717plnsb45.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKaQ8jfvPvW181rscvaensMY--_FGsBj8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "517725428759-9m60ks7n222u0bm5g71t6t717plnsb45.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
