@@ -6,6 +6,11 @@
     android:orientation="vertical"
     tools:context="com.merteroglu.ots.MainActivity">
 
+    <TextView
+        android:id="@+id/txtUserId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/btnOnOff"

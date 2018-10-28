@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         });
 
         if(auth.getCurrentUser() != null){
-            //startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
         }
 
         girisButton.setOnClickListener(new View.OnClickListener() {
