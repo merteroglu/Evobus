@@ -16,9 +16,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.Marker;
+import com.merteroglu.ots.Model.Driver;
 
 public class DriverActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private static final String TAG = "DriverActivity";
     private GoogleMap mMap;
     private String permissions[] = {Manifest.permission.BLUETOOTH,Manifest.permission.BLUETOOTH_ADMIN,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.BLUETOOTH_PRIVILEGED};
 
@@ -34,6 +36,8 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
 
         requestAppPermissions(permissions,R.string.app_name,10);
 
+        Driver driver = (Driver) getIntent().getSerializableExtra("Driver");
+        Log.d(TAG, "onCreate: " + driver.getVehicle() + "\n id : " + driver.getId());
     }
 
 

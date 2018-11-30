@@ -1,11 +1,22 @@
 package com.merteroglu.ots.Model;
 
-public class Driver {
+import java.io.Serializable;
+
+public class Driver  implements Serializable{
+    private String id;
     private String name;
     private String password;
     private String phone;
     private String tc;
     private String vehicle;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

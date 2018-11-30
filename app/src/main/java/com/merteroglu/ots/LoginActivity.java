@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.merteroglu.ots.Model.Driver;
 
 public class LoginActivity extends AppCompatActivity{
 
@@ -90,7 +91,10 @@ public class LoginActivity extends AppCompatActivity{
                             @Override
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                 if(queryDocumentSnapshots.size() != 0){
+                                    Driver driver = queryDocumentSnapshots.getDocuments().get(0).toObject(Driver.class);
+                                    driver.setId(queryDocumentSnapshots.getDocuments().get(0).getId());
                                     Intent intent = new Intent(getApplicationContext(),DriverActivity.class);
+                                    intent.putExtra("Driver",driver);
                                     startActivity(intent);
                                 }
 
