@@ -6,35 +6,5 @@
     android:orientation="vertical"
     tools:context="com.merteroglu.ots.MainActivity">
 
-    <TextView
-        android:id="@+id/txtUserId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center" />
-
-    <Button
-        android:id="@+id/btnOnOff"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="On/Off" />
-
-    <Button
-        android:id="@+id/btnDiscoverable"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Discoverable On/Off"/>
-
-    <Button
-        android:id="@+id/btnScan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Scan" />
-
-    <ListView
-        android:layout_below="@id/btnScan"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:id="@+id/lvNewDevices"/>
-
 
 </LinearLayout>
