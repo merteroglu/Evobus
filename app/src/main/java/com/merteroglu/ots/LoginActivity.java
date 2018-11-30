@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity{
                 }
 
 
-                CollectionReference studentRef = firestore.collection("student"); //.whereEqualTo("tc",userid).whereEqualTo("password",parola);
+                CollectionReference studentRef = firestore.collection("student");
                 studentRef.whereEqualTo("tc",userid)
                         .whereEqualTo("password",parola)
                         .get()
@@ -64,9 +64,9 @@ public class LoginActivity extends AppCompatActivity{
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         if(queryDocumentSnapshots.size() != 0){
-                            Toast.makeText(LoginActivity.this, "Giriş Başarılı", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Student Giriş Başarılı", Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(LoginActivity.this, "Giriş Başarısız", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Student Giriş Başarısız", Toast.LENGTH_SHORT).show();
                         }
 
                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
@@ -82,7 +82,36 @@ public class LoginActivity extends AppCompatActivity{
                         e.printStackTrace();
                     }
                 });
+
+                CollectionReference driverRef = firestore.collection("driver");
+                driverRef.whereEqualTo("tc",userid)
+                        .whereEqualTo("password",parola)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                if(queryDocumentSnapshots.size() != 0){
+                                    Toast.makeText(LoginActivity.this, "Driver Giriş Başarılı", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(LoginActivity.this, "Driver Giriş Başarısız", Toast.LENGTH_SHORT).show();
+                                }
+
+                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                    Log.d("Login Activity", "tc : " + documentSnapshot.get("tc"));
+                                    Log.d("Login Activity", "name : " + documentSnapshot.get("name"));
+
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("Login Activity", "E: " + e.getMessage());
+                                e.printStackTrace();
+                            }
+                        });
             }
+
         });
     }
 
