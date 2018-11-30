@@ -1,5 +1,6 @@
 package com.merteroglu.ots;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,15 +65,13 @@ public class LoginActivity extends AppCompatActivity{
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         if(queryDocumentSnapshots.size() != 0){
-                            Toast.makeText(LoginActivity.this, "Student Giriş Başarılı", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(LoginActivity.this, "Student Giriş Başarısız", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(),StudentActivity.class);
+                            startActivity(intent);
                         }
 
                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                            Log.d("Login Activity", "tc : " + documentSnapshot.get("tc"));
                            Log.d("Login Activity", "name : " + documentSnapshot.get("name"));
-
                        }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -91,15 +90,13 @@ public class LoginActivity extends AppCompatActivity{
                             @Override
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                 if(queryDocumentSnapshots.size() != 0){
-                                    Toast.makeText(LoginActivity.this, "Driver Giriş Başarılı", Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Toast.makeText(LoginActivity.this, "Driver Giriş Başarısız", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(),DriverActivity.class);
+                                    startActivity(intent);
                                 }
 
                                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                                     Log.d("Login Activity", "tc : " + documentSnapshot.get("tc"));
                                     Log.d("Login Activity", "name : " + documentSnapshot.get("name"));
-
                                 }
                             }
                         })
