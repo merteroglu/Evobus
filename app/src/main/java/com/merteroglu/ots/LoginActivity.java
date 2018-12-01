@@ -22,6 +22,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.merteroglu.ots.Model.Driver;
+import com.merteroglu.ots.Model.Student;
 
 public class LoginActivity extends AppCompatActivity{
 
@@ -66,7 +67,10 @@ public class LoginActivity extends AppCompatActivity{
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         if(queryDocumentSnapshots.size() != 0){
+                            Student student = queryDocumentSnapshots.getDocuments().get(0).toObject(Student.class);
+                            student.setId(queryDocumentSnapshots.getDocuments().get(0).getId());
                             Intent intent = new Intent(getApplicationContext(),StudentActivity.class);
+                            intent.putExtra("Student",student);
                             startActivity(intent);
                         }
 

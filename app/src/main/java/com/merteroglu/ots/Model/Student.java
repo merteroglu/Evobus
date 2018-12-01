@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Student implements Serializable {
+    private String id;
+    private String driverId;
     private BusEvent OffBus;
     private BusEvent OnBus;
     private GeoPoint adress;
@@ -20,6 +22,22 @@ public class Student implements Serializable {
     private String tc;
     private String vehicle;
     private List<Location> locations;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(String driverId) {
+        this.driverId = driverId;
+    }
 
     public BusEvent getOffBus() {
         return OffBus;

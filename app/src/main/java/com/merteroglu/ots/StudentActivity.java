@@ -12,10 +12,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.Marker;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.merteroglu.ots.Model.Student;
 
 public class StudentActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,11 @@ public class StudentActivity extends AppCompatActivity implements OnMapReadyCall
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        firestore = FirebaseFirestore.getInstance();
+
+        Student student = (Student) getIntent().getSerializableExtra("Student");
+
     }
 
     @Override
@@ -45,7 +53,7 @@ public class StudentActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.student_menu,menu);
+        menuInflater.inflate(R.menu.location_list,menu);
         return true;
     }
 
