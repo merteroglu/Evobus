@@ -42,7 +42,7 @@
                     android:id="@+id/imgDurum"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:background="@drawable/circle"
+                    android:background="@drawable/circle_green"
                     android:layout_alignBottom="@id/imgPp"
                     android:layout_alignRight="@id/imgPp"
                     android:scaleType="fitXY"
