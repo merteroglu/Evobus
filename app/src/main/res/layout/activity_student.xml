@@ -45,7 +45,6 @@
                     android:background="@drawable/circle_green"
                     android:layout_alignBottom="@id/imgPp"
                     android:layout_alignRight="@id/imgPp"
-                    android:scaleType="fitXY"
                     />
 
             </RelativeLayout>

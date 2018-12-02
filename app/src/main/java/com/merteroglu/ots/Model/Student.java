@@ -1,5 +1,7 @@
 package com.merteroglu.ots.Model;
 
+
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.io.Serializable;
@@ -8,9 +10,11 @@ import java.util.List;
 public class Student implements Serializable {
     private String id;
     private String driverId;
-    private BusEvent OffBus;
-    private BusEvent OnBus;
-    private GeoPoint adress;
+    private Timestamp OffBusTime;
+    private GeoPoint OffBusLocation;
+    private Timestamp OnBusTime;
+    private GeoPoint OnBusLocation;
+    private GeoPoint address;
     private String bid;
     private GeoPoint currentLocation;
     private boolean inVehicle;
@@ -39,28 +43,44 @@ public class Student implements Serializable {
         this.driverId = driverId;
     }
 
-    public BusEvent getOffBus() {
-        return OffBus;
+    public Timestamp getOffBusTime() {
+        return OffBusTime;
     }
 
-    public void setOffBus(BusEvent offBus) {
-        OffBus = offBus;
+    public void setOffBusTime(Timestamp offBusTime) {
+        OffBusTime = offBusTime;
     }
 
-    public BusEvent getOnBus() {
-        return OnBus;
+    public GeoPoint getOffBusLocation() {
+        return OffBusLocation;
     }
 
-    public void setOnBus(BusEvent onBus) {
-        OnBus = onBus;
+    public void setOffBusLocation(GeoPoint offBusLocation) {
+        OffBusLocation = offBusLocation;
     }
 
-    public GeoPoint getAdress() {
-        return adress;
+    public Timestamp getOnBusTime() {
+        return OnBusTime;
     }
 
-    public void setAdress(GeoPoint adress) {
-        this.adress = adress;
+    public void setOnBusTime(Timestamp onBusTime) {
+        OnBusTime = onBusTime;
+    }
+
+    public GeoPoint getOnBusLocation() {
+        return OnBusLocation;
+    }
+
+    public void setOnBusLocation(GeoPoint onBusLocation) {
+        OnBusLocation = onBusLocation;
+    }
+
+    public GeoPoint getAddress() {
+        return address;
+    }
+
+    public void setAddress(GeoPoint address) {
+        this.address = address;
     }
 
     public String getBid() {
@@ -150,4 +170,5 @@ public class Student implements Serializable {
     public void setLocations(List<Location> locations) {
         this.locations = locations;
     }
+
 }

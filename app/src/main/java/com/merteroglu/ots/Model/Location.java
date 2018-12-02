@@ -6,17 +6,11 @@ import com.google.firebase.firestore.GeoPoint;
 import java.io.Serializable;
 
 public class Location implements Serializable {
-    private Timestamp date;
+    private Timestamp time;
     private GeoPoint location;
-    private boolean type;
+    private boolean action;
 
-    public Timestamp getDate() {
-        return date;
-    }
 
-    public void setDate(Timestamp date) {
-        this.date = date;
-    }
 
     public GeoPoint getLocation() {
         return location;
@@ -26,11 +20,19 @@ public class Location implements Serializable {
         this.location = location;
     }
 
-    public boolean isType() {
-        return type;
+    public Timestamp getTime() {
+        return time;
     }
 
-    public void setType(boolean type) {
-        this.type = type;
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
+
+    public boolean isAction() {
+        return action;
+    }
+
+    public void setAction(boolean action) {
+        this.action = action;
     }
 }

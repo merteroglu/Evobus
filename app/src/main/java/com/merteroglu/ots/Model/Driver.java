@@ -1,5 +1,7 @@
 package com.merteroglu.ots.Model;
 
+import com.google.firebase.firestore.GeoPoint;
+
 import java.io.Serializable;
 
 public class Driver  implements Serializable{
@@ -9,6 +11,7 @@ public class Driver  implements Serializable{
     private String phone;
     private String tc;
     private String vehicle;
+    private GeoPoint vehicleLocation;
 
     public String getId() {
         return id;
@@ -56,5 +59,13 @@ public class Driver  implements Serializable{
 
     public void setVehicle(String vehicle) {
         this.vehicle = vehicle;
+    }
+
+    public GeoPoint getVehicleLocation() {
+        return vehicleLocation;
+    }
+
+    public void setVehicleLocation(GeoPoint vehicleLocation) {
+        this.vehicleLocation = vehicleLocation;
     }
 }

@@ -70,8 +70,10 @@ public class LoginActivity extends AppCompatActivity{
                             Student student = queryDocumentSnapshots.getDocuments().get(0).toObject(Student.class);
                             student.setId(queryDocumentSnapshots.getDocuments().get(0).getId());
                             Intent intent = new Intent(getApplicationContext(),StudentActivity.class);
-                            intent.putExtra("Student",student);
+                            intent.putExtra("StudentID",student.getId());
                             startActivity(intent);
+                        }else{
+                            Log.d("Login", "Student Failed");
                         }
 
                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
@@ -98,8 +100,10 @@ public class LoginActivity extends AppCompatActivity{
                                     Driver driver = queryDocumentSnapshots.getDocuments().get(0).toObject(Driver.class);
                                     driver.setId(queryDocumentSnapshots.getDocuments().get(0).getId());
                                     Intent intent = new Intent(getApplicationContext(),DriverActivity.class);
-                                    intent.putExtra("Driver",driver);
+                                    intent.putExtra("DriverID",driver.getId());
                                     startActivity(intent);
+                                }else{
+                                    Log.d("Login", "Driver Failed");
                                 }
 
                                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
