@@ -1,5 +1,6 @@
 package com.merteroglu.ots;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -195,8 +196,10 @@ public class StudentActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.action_studentlocations:
-                Toast.makeText(this, "Menu tıklandı", Toast.LENGTH_SHORT).show();
+            case R.id.action_locationslist:
+                Intent intent = new Intent(getApplicationContext(),LocationListActivity.class);
+                intent.putExtra("StudentID",student.getId());
+                startActivity(intent);
                 break;
         }
         return true;
