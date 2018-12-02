@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -35,6 +36,7 @@ import com.merteroglu.ots.Model.Driver;
 import com.merteroglu.ots.Model.Student;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class DriverActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -45,7 +47,8 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
     private FirebaseFirestore firestore;
     private Driver driver;
     private List<Student> studentList;
-
+    private double driverCurrentLocationLatitude;
+    private double driverCurrentLocationLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +83,7 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
         final LocationListener mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                driverVehicleLocation(location.getLatitude(),location.getLongitude());
+                updateDriverVehicleLocation(location.getLatitude(),location.getLongitude());
             }
 
             @Override
@@ -179,11 +182,52 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
         }
     }
 
-    public void driverVehicleLocation(double latitude,double longitude){
+    public void updateDriverVehicleLocation(double latitude,double longitude){
+        driverCurrentLocationLatitude = latitude;
+        driverCurrentLocationLongitude = longitude;
         firestore.collection("driver").document(driver.getId())
                 .update(
                         "vehicleLocation",new GeoPoint(latitude,longitude)
                 );
+        updateStudentsCurrentLocation(latitude,longitude);
     }
+
+    public void updateStudentsCurrentLocation(double latitude,double longitude){
+        for(Student s : studentList){
+            if(s.isInVehicle()){
+                firestore.collection("student").document(s.getId())
+                        .update(
+                                "currentLocation",new GeoPoint(latitude,longitude)
+                        );
+            }
+        }
+    }
+
+   public void updateStudentBusLocation(Student s, boolean isOnBus){
+       Timestamp time = new Timestamp(Calendar.getInstance().getTime());
+       GeoPoint location = new GeoPoint(driverCurrentLocationLatitude,driverCurrentLocationLongitude);
+        if(isOnBus){
+            firestore.collection("student").document(s.getId())
+                    .update(
+                            "OnBusLocation",location,
+                            "OnBusTime",time,
+                            "inVehicle",true
+                    );
+            firestore.collection("student").document(s.getId()).collection("locations")
+                    .add(new com.merteroglu.ots.Model.Location(time,location,true));
+
+        }else{
+            firestore.collection("student").document(s.getId())
+                    .update(
+                            "OffBusLocation",location,
+                            "OffBusTime",time,
+                            "inVehicle",false
+                    );
+            firestore.collection("student").document(s.getId()).collection("locations")
+                    .add(new com.merteroglu.ots.Model.Location(time,location,false));
+        }
+   }
+
+
 
 }

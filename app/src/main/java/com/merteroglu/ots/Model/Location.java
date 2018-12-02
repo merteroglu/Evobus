@@ -10,7 +10,14 @@ public class Location implements Serializable {
     private GeoPoint location;
     private boolean action;
 
+    public Location() {
+    }
 
+    public Location(Timestamp time, GeoPoint location, boolean action) {
+        this.time = time;
+        this.location = location;
+        this.action = action;
+    }
 
     public GeoPoint getLocation() {
         return location;
