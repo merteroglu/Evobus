@@ -144,7 +144,9 @@ public class StudentActivity extends AppCompatActivity implements OnMapReadyCall
                 }
 
                 if(documentSnapshot != null && documentSnapshot.exists()){
-
+                    student = documentSnapshot.toObject(Student.class);
+                    student.setId(documentSnapshot.getId());
+                    fillFields();
                 }
             }
         });
@@ -160,6 +162,7 @@ public class StudentActivity extends AppCompatActivity implements OnMapReadyCall
 
                 if(documentSnapshot != null && documentSnapshot.exists()){
                     driver = documentSnapshot.toObject(Driver.class);
+                    driver.setId(documentSnapshot.getId());
                     if(busMarker != null)
                     busMarker.setPosition(new LatLng(driver.getVehicleLocation().getLatitude(),driver.getVehicleLocation().getLongitude()));
                 }
