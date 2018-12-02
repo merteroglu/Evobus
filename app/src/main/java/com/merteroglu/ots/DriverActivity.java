@@ -1,6 +1,7 @@
 package com.merteroglu.ots;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -43,7 +44,7 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
 
     private static final String TAG = "DriverActivity";
     private GoogleMap mMap;
-    private String permissions[] = {Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH_PRIVILEGED};
+    private String permissions[] = {Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH_PRIVILEGED,Manifest.permission.CALL_PHONE};
     private FirebaseFirestore firestore;
     private Driver driver;
     private List<Student> studentList;
@@ -155,7 +156,9 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_studentlist:
-                Toast.makeText(this, "Menu tıklandı", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(),StudentListActivity.class);
+                intent.putExtra("Vehicle",driver.getVehicle());
+                startActivity(intent);
                 break;
         }
         return true;
@@ -185,11 +188,13 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
     public void updateDriverVehicleLocation(double latitude,double longitude){
         driverCurrentLocationLatitude = latitude;
         driverCurrentLocationLongitude = longitude;
-        firestore.collection("driver").document(driver.getId())
-                .update(
-                        "vehicleLocation",new GeoPoint(latitude,longitude)
-                );
-        updateStudentsCurrentLocation(latitude,longitude);
+        if(driver != null) {
+            firestore.collection("driver").document(driver.getId())
+                    .update(
+                            "vehicleLocation", new GeoPoint(latitude, longitude)
+                    );
+            updateStudentsCurrentLocation(latitude, longitude);
+        }
     }
 
     public void updateStudentsCurrentLocation(double latitude,double longitude){

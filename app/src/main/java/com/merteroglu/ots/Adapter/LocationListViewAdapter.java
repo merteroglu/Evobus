@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import java.util.List;
 
 public class LocationListViewAdapter extends ArrayAdapter {
     private final Context context;
-    private RecyclerView.ViewHolder holder;
     private List locations = new ArrayList();
 
     public LocationListViewAdapter(@NonNull Context context, int resource) {
@@ -74,7 +72,7 @@ public class LocationListViewAdapter extends ArrayAdapter {
 
         locationHolder.txtLocation.setText(location.getLocation().getLatitude() + " , " + location.getLocation().getLongitude());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy HH:mm");
+        final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy HH:mm");
         locationHolder.txtTime.setText(sdf.format(location.getTime().toDate()));
 
         if(location.isAction())
