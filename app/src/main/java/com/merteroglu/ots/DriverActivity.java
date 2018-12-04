@@ -11,17 +11,16 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
+
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -132,9 +131,11 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
     private void addHomeMarkers() {
         if(mMap != null){
             for(Student s : studentList){
+                float v = s.isInVehicle() ? BitmapDescriptorFactory.HUE_GREEN : BitmapDescriptorFactory.HUE_RED;
                 if(s.getAddress() != null)
                 mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(s.getAddress().getLatitude(),s.getAddress().getLongitude())));
+                .position(new LatLng(s.getAddress().getLatitude(),s.getAddress().getLongitude()))
+                .icon(BitmapDescriptorFactory.defaultMarker(v)));
             }
         }
     }
