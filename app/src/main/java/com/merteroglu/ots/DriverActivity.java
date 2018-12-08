@@ -180,7 +180,7 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
                             return;
                         }
 
-                        if(queryDocumentSnapshots != null && queryDocumentSnapshots.exists()){
+                        if(queryDocumentSnapshots != null){
                             if(queryDocumentSnapshots.size() != 0){
                                 studentList.clear();
                                 for (DocumentSnapshot ds : queryDocumentSnapshots.getDocuments()){
