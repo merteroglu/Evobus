@@ -157,6 +157,7 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
 
     private void addHomeMarkers() {
         if(mMap != null){
+            mMap.clear();
             for(Student s : studentList){
                 float v = s.isInVehicle() ? BitmapDescriptorFactory.HUE_GREEN : BitmapDescriptorFactory.HUE_RED;
                 if(s.getAddress() != null)
