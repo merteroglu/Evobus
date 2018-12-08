@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,7 +30,9 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.merteroglu.ots.Model.Driver;
@@ -38,6 +41,8 @@ import com.merteroglu.ots.Model.Student;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 public class DriverActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -121,6 +126,28 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
                                 Student student = ds.toObject(Student.class);
                                 student.setId(ds.getId());
                                 studentList.add(student);
+                            }
+                            addHomeMarkers();
+                        }
+                    }
+                });
+        studentRef.whereEqualTo("vehicle",driver.getVehicle())
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if(e != null){
+                            Log.d(TAG, "onEvent: " + e.getMessage());
+                            return;
+                        }
+
+                        if(queryDocumentSnapshots != null && queryDocumentSnapshots.exists()){
+                            if(queryDocumentSnapshots.size() != 0){
+                                studentList.clear();
+                                for (DocumentSnapshot ds : queryDocumentSnapshots.getDocuments()){
+                                    Student student = ds.toObject(Student.class);
+                                    student.setId(ds.getId());
+                                    studentList.add(student);
+                                }
                                 addHomeMarkers();
                             }
                         }
