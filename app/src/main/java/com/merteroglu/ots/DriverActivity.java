@@ -17,6 +17,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 
+import com.estimote.coresdk.observation.region.beacon.BeaconRegion;
+import com.estimote.coresdk.recognition.packets.Beacon;
+import com.estimote.coresdk.service.BeaconManager;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,6 +44,7 @@ import com.merteroglu.ots.Model.Student;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -54,6 +58,7 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
     private List<Student> studentList;
     private double driverCurrentLocationLatitude;
     private double driverCurrentLocationLongitude;
+    private BeaconManager beaconManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +117,41 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
             mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 20, mLocationListener);
         }
 
+        beaconManager = new BeaconManager(this);
+
+        beaconManager.setMonitoringListener(new BeaconManager.BeaconMonitoringListener() {
+            @Override
+            public void onEnteredRegion(BeaconRegion beaconRegion, List<Beacon> beacons) {
+                for(Student s : studentList){
+                    if(s.getName().equals(beaconRegion.getIdentifier())){
+                        updateStudentBusSituation(s,true);
+                    }
+                }
+            }
+
+            @Override
+            public void onExitedRegion(BeaconRegion beaconRegion) {
+                for(Student s : studentList){
+                    if(s.getName().equals(beaconRegion.getIdentifier())){
+                        updateStudentBusSituation(s,false);
+                    }
+                }
+            }
+        });
+
+    }
+
+    private void startMonitoring(){
+        beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
+            @Override
+            public void onServiceReady() {
+                if(studentList != null){
+                    for (Student s : studentList){
+                        beaconManager.startMonitoring(new BeaconRegion(s.getName(),UUID.fromString(s.getBid()),153,2));
+                    }
+                }
+            }
+        });
     }
 
     private void getStudentList() {
@@ -153,6 +193,7 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
                         }
                     }
                 });
+        startMonitoring();
     }
 
     private void addHomeMarkers() {
@@ -237,7 +278,7 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
         }
     }
 
-   public void updateStudentBusLocation(Student s, boolean isOnBus){
+   public void updateStudentBusSituation(Student s, boolean isOnBus){
        Timestamp time = new Timestamp(Calendar.getInstance().getTime());
        GeoPoint location = new GeoPoint(driverCurrentLocationLatitude,driverCurrentLocationLongitude);
         if(isOnBus){
