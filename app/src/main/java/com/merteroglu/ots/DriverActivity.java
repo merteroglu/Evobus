@@ -87,6 +87,8 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
                     DocumentSnapshot document = task.getResult();
                     driver = document.toObject(Driver.class);
                     driver.setId(document.getId());
+                    driverCurrentLocationLatitude = driver.getVehicleLocation().getLatitude();
+                    driverCurrentLocationLongitude = driver.getVehicleLocation().getLongitude();
                     getStudentList();
                 }
             }
@@ -150,8 +152,6 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
         beaconManager.setBackgroundScanPeriod(2000,2000);
 
 
-
-
     }
 
     private void startMonitoring(){
@@ -160,7 +160,7 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
             public void onServiceReady() {
                 if(studentList != null){
                     for (Student s : studentList){
-                        beaconManager.startMonitoring(new BeaconRegion(s.getName(),UUID.fromString(s.getBid()),153,2));
+                        beaconManager.startMonitoring(new BeaconRegion(s.getName(),UUID.fromString(s.getBid()),null,null));
                         Log.d(TAG, "onServiceReady: " + s.getName() + " -> " + s.getBid());
                     }
                 }
