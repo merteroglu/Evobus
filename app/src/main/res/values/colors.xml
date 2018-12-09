@@ -2,6 +2,9 @@
 <resources>
     <color name="colorPrimary">#00A5FF</color>
     <color name="colorPrimaryDark">#038bd6</color>
-    <color name="colorAccent">#ff5628</color>
+    <color name="colorAccent">#C9293C</color>
     <color name="colorLocationsListBg">#EEEEEE</color>
+    <color name="textColorHint">#AAA7A7</color>
+    <color name="transparent">#92b4b4b4</color>
+    <color name="bgedittext">#92b4b4b4</color>
 </resources>

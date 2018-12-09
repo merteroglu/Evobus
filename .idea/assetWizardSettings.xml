@@ -45,10 +45,10 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$USER_HOME$/Desktop/ots drawables/xxxhdpi/locationslist.png" />
-                                      <entry key="outputName" value="ic_action_locationslist" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Downloads/lock.png" />
+                                      <entry key="outputName" value="ic_password" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="ffffff" />
+                                      <entry key="themeColor" value="000000" />
                                     </map>
                                   </option>
                                 </PersistentState>
