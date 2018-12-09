@@ -164,27 +164,6 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
                         Log.d(TAG, "onServiceReady: " + s.getName() + " -> " + s.getBid());
                     }
                 }
-
-                beaconManager.setConfigurableDevicesListener(new BeaconManager.ConfigurableDevicesListener() {
-                    @Override
-                    public void onConfigurableDevicesFound(List<ConfigurableDevice> configurableDevices) {
-                        for (ConfigurableDevice device : configurableDevices){
-                            Log.d(TAG, "onConfigurableDevicesFound: " + device.getUniqueKey() + "  ==> " + device.macAddress);
-                        }
-                    }
-                });
-                beaconManager.startConfigurableDevicesDiscovery();
-
-                beaconManager.setNearableListener(new BeaconManager.NearableListener() {
-                    @Override
-                    public void onNearablesDiscovered(List<Nearable> nearables) {
-                        for (Nearable nearable : nearables)
-                            Log.d(TAG, "onNearablesDiscovered: " + nearable.identifier);
-                    }
-                });
-
-                beaconManager.startNearableDiscovery();
-
             }
         });
     }
