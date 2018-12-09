@@ -40,6 +40,8 @@ public class LoginActivity extends AppCompatActivity{
         girisID = findViewById(R.id.girisID);
         girisParola = findViewById(R.id.girisParola);
         girisButton = findViewById(R.id.girisButton);
+        girisID.setText("512256");
+        girisParola.setText("12345");
 
 
         girisButton.setOnClickListener(new View.OnClickListener() {

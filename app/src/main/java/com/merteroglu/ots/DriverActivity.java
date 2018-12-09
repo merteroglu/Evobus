@@ -15,10 +15,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 import com.estimote.coresdk.observation.region.beacon.BeaconRegion;
 import com.estimote.coresdk.recognition.packets.Beacon;
+import com.estimote.coresdk.recognition.packets.ConfigurableDevice;
+import com.estimote.coresdk.recognition.packets.Nearable;
 import com.estimote.coresdk.service.BeaconManager;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -118,10 +121,13 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
         }
 
         beaconManager = new BeaconManager(this);
+        beaconManager.setForegroundScanPeriod(2000,2000);
 
         beaconManager.setMonitoringListener(new BeaconManager.BeaconMonitoringListener() {
             @Override
             public void onEnteredRegion(BeaconRegion beaconRegion, List<Beacon> beacons) {
+                Toast.makeText(DriverActivity.this, "Entered Region : " + beaconRegion.getIdentifier(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onEnteredRegion: " + beaconRegion.getIdentifier());
                 for(Student s : studentList){
                     if(s.getName().equals(beaconRegion.getIdentifier())){
                         updateStudentBusSituation(s,true);
@@ -131,6 +137,8 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
 
             @Override
             public void onExitedRegion(BeaconRegion beaconRegion) {
+                Toast.makeText(DriverActivity.this, "Exited Region : " + beaconRegion.getIdentifier(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onExitedRegion: " + beaconRegion.getIdentifier());
                 for(Student s : studentList){
                     if(s.getName().equals(beaconRegion.getIdentifier())){
                         updateStudentBusSituation(s,false);
@@ -138,6 +146,11 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
                 }
             }
         });
+
+        beaconManager.setBackgroundScanPeriod(2000,2000);
+
+
+
 
     }
 
@@ -148,8 +161,30 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
                 if(studentList != null){
                     for (Student s : studentList){
                         beaconManager.startMonitoring(new BeaconRegion(s.getName(),UUID.fromString(s.getBid()),153,2));
+                        Log.d(TAG, "onServiceReady: " + s.getName() + " -> " + s.getBid());
                     }
                 }
+
+                beaconManager.setConfigurableDevicesListener(new BeaconManager.ConfigurableDevicesListener() {
+                    @Override
+                    public void onConfigurableDevicesFound(List<ConfigurableDevice> configurableDevices) {
+                        for (ConfigurableDevice device : configurableDevices){
+                            Log.d(TAG, "onConfigurableDevicesFound: " + device.getUniqueKey() + "  ==> " + device.macAddress);
+                        }
+                    }
+                });
+                beaconManager.startConfigurableDevicesDiscovery();
+
+                beaconManager.setNearableListener(new BeaconManager.NearableListener() {
+                    @Override
+                    public void onNearablesDiscovered(List<Nearable> nearables) {
+                        for (Nearable nearable : nearables)
+                            Log.d(TAG, "onNearablesDiscovered: " + nearable.identifier);
+                    }
+                });
+
+                beaconManager.startNearableDiscovery();
+
             }
         });
     }
