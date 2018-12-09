@@ -13,6 +13,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.merteroglu.ots.Adapter.LocationListViewAdapter;
 import com.merteroglu.ots.Model.Location;
 import com.merteroglu.ots.Model.Student;
@@ -38,20 +39,29 @@ public class LocationListActivity extends AppCompatActivity {
 
 
         final String studentID = getIntent().getStringExtra("StudentID");
-        DocumentReference studentRef = firestore.collection("student").document(studentID);
+        final DocumentReference studentRef = firestore.collection("student").document(studentID);
         studentRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
-                    Student student;
+                    final Student student;
                     student = document.toObject(Student.class);
                     student.setId(document.getId());
-                    for(Location lo : student.getLocations()){
-                        locationListViewAdapter.add(lo);
-                    }
-                    listView.setAdapter(locationListViewAdapter);
-                    listView.deferNotifyDataSetChanged();
+                    studentRef.collection("locations").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            student.setLocations(task.getResult().toObjects(Location.class));
+                            locationListViewAdapter.clearAll();
+                            for(Location lo : student.getLocations()){
+                                locationListViewAdapter.add(lo);
+                            }
+                            listView.setAdapter(locationListViewAdapter);
+                            listView.deferNotifyDataSetChanged();
+                        }
+                    });
+
+
                 }
             }
         });
@@ -65,15 +75,23 @@ public class LocationListActivity extends AppCompatActivity {
                 }
 
                 if(documentSnapshot != null && documentSnapshot.exists()){
-                    Student student;
+                    final Student student;
                     student = documentSnapshot.toObject(Student.class);
                     student.setId(documentSnapshot.getId());
-                    locationListViewAdapter.clearAll();
-                    for(Location lo : student.getLocations()){
-                        locationListViewAdapter.add(lo);
-                    }
-                    listView.setAdapter(locationListViewAdapter);
-                    listView.deferNotifyDataSetChanged();
+
+                    studentRef.collection("locations").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            student.setLocations(task.getResult().toObjects(Location.class));
+                            locationListViewAdapter.clearAll();
+                            for(Location lo : student.getLocations()){
+                                locationListViewAdapter.add(lo);
+                            }
+                            listView.setAdapter(locationListViewAdapter);
+                            listView.deferNotifyDataSetChanged();
+                        }
+                    });
+
                 }
             }
         });
