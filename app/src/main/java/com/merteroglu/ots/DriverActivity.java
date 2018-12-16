@@ -20,13 +20,13 @@ import android.widget.Toast;
 
 import com.estimote.coresdk.observation.region.beacon.BeaconRegion;
 import com.estimote.coresdk.recognition.packets.Beacon;
-import com.estimote.coresdk.recognition.packets.ConfigurableDevice;
-import com.estimote.coresdk.recognition.packets.Nearable;
 import com.estimote.coresdk.service.BeaconManager;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -220,6 +220,11 @@ public class DriverActivity extends AppCompatActivity implements OnMapReadyCallb
                 .position(new LatLng(s.getAddress().getLatitude(),s.getAddress().getLongitude()))
                 .icon(BitmapDescriptorFactory.defaultMarker(v)));
             }
+            GeoPoint address = studentList.get(studentList.size()-1).getAddress();
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(address.getLatitude(),address.getLongitude()))
+                    .zoom(15f).build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
     }
 
