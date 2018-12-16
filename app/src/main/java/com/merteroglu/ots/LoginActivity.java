@@ -1,6 +1,7 @@
 package com.merteroglu.ots;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.merteroglu.ots.Model.Driver;
 import com.merteroglu.ots.Model.Student;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class LoginActivity extends AppCompatActivity{
 
@@ -60,6 +62,12 @@ public class LoginActivity extends AppCompatActivity{
                     return;
                 }
 
+                final SweetAlertDialog mDialog = new SweetAlertDialog(LoginActivity.this,SweetAlertDialog.PROGRESS_TYPE);
+                mDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                mDialog.setTitleText("Giriş Yapılıyor");
+                mDialog.setCancelable(false);
+                mDialog.show();
+
 
                 CollectionReference studentRef = firestore.collection("student");
                 studentRef.whereEqualTo("tc",userid)
@@ -73,15 +81,11 @@ public class LoginActivity extends AppCompatActivity{
                             student.setId(queryDocumentSnapshots.getDocuments().get(0).getId());
                             Intent intent = new Intent(getApplicationContext(),StudentActivity.class);
                             intent.putExtra("StudentID",student.getId());
+                            mDialog.dismissWithAnimation();
                             startActivity(intent);
                         }else{
                             Log.d("Login", "Student Failed");
                         }
-
-                       for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                           Log.d("Login Activity", "tc : " + documentSnapshot.get("tc"));
-                           Log.d("Login Activity", "name : " + documentSnapshot.get("name"));
-                       }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -103,14 +107,10 @@ public class LoginActivity extends AppCompatActivity{
                                     driver.setId(queryDocumentSnapshots.getDocuments().get(0).getId());
                                     Intent intent = new Intent(getApplicationContext(),DriverActivity.class);
                                     intent.putExtra("DriverID",driver.getId());
+                                    mDialog.dismissWithAnimation();
                                     startActivity(intent);
                                 }else{
                                     Log.d("Login", "Driver Failed");
-                                }
-
-                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                    Log.d("Login Activity", "tc : " + documentSnapshot.get("tc"));
-                                    Log.d("Login Activity", "name : " + documentSnapshot.get("name"));
                                 }
                             }
                         })
@@ -121,6 +121,19 @@ public class LoginActivity extends AppCompatActivity{
                                 e.printStackTrace();
                             }
                         });
+
+                mDialog.setTitleText("Başarısız");
+                mDialog.setContentText("Giriş yapılamadı. id ve şifrenizi kontrol edin");
+                mDialog.setConfirmText("Tamam");
+                mDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                mDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        mDialog.dismissWithAnimation();
+                    }
+                });
+
+
             }
 
         });
