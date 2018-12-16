@@ -13,10 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -30,6 +32,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.merteroglu.ots.Model.Driver;
 import com.merteroglu.ots.Model.Student;
@@ -121,10 +124,16 @@ public class StudentActivity extends AppCompatActivity implements OnMapReadyCall
                             fillFields();
                             setListeners(student.getId(), driver.getId());
                             if (mMap != null) {
+                                GeoPoint vehicleLocation = driver.getVehicleLocation();
                                 MarkerOptions markerOptions = new MarkerOptions()
-                                        .position(new LatLng(driver.getVehicleLocation().getLatitude(), driver.getVehicleLocation().getLongitude()))
+                                        .position(new LatLng(vehicleLocation.getLatitude(), vehicleLocation.getLongitude()))
                                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus));
                                 busMarker = mMap.addMarker(markerOptions);
+
+                                CameraPosition cameraPosition = new CameraPosition.Builder()
+                                        .target(new LatLng(vehicleLocation.getLatitude(),vehicleLocation.getLongitude()))
+                                        .zoom(15f).build();
+                                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                             }
                         }
                     }
