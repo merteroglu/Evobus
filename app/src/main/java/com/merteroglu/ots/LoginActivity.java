@@ -31,7 +31,8 @@ public class LoginActivity extends AppCompatActivity{
     private FirebaseFirestore firestore;
     private EditText girisID,girisParola;
     private Button girisButton;
-
+    private int flag = 0;
+    private SweetAlertDialog mDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +63,7 @@ public class LoginActivity extends AppCompatActivity{
                     return;
                 }
 
-                final SweetAlertDialog mDialog = new SweetAlertDialog(LoginActivity.this,SweetAlertDialog.PROGRESS_TYPE);
+                mDialog = new SweetAlertDialog(LoginActivity.this,SweetAlertDialog.PROGRESS_TYPE);
                 mDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
                 mDialog.setTitleText("Giriş Yapılıyor");
                 mDialog.setCancelable(false);
@@ -92,6 +93,8 @@ public class LoginActivity extends AppCompatActivity{
                     public void onFailure(@NonNull Exception e) {
                         Log.d("Login Activity", "E: " + e.getMessage());
                         e.printStackTrace();
+                        flag++;
+                        openFailedLoginBox();
                     }
                 });
 
@@ -119,19 +122,12 @@ public class LoginActivity extends AppCompatActivity{
                             public void onFailure(@NonNull Exception e) {
                                 Log.d("Login Activity", "E: " + e.getMessage());
                                 e.printStackTrace();
+                                flag++;
+                                openFailedLoginBox();
                             }
                         });
 
-                mDialog.setTitleText("Başarısız");
-                mDialog.setContentText("Giriş yapılamadı. id ve şifrenizi kontrol edin");
-                mDialog.setConfirmText("Tamam");
-                mDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
-                mDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        mDialog.dismissWithAnimation();
-                    }
-                });
+
 
 
             }
@@ -139,4 +135,18 @@ public class LoginActivity extends AppCompatActivity{
         });
     }
 
+    private void openFailedLoginBox() {
+        if (flag == 2) {
+            mDialog.setTitleText("Başarısız");
+            mDialog.setContentText("Giriş yapılamadı. id ve şifrenizi kontrol edin");
+            mDialog.setConfirmText("Tamam");
+            mDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+            mDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    mDialog.dismissWithAnimation();
+                }
+            });
+        }
+    }
 }
