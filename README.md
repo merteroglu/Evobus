@@ -4,6 +4,16 @@
 
 ## About
 
+Öğrencilerin güvenliği ve takibini kolaştıran bir sistemdir. Servis ve öğrenci temellerinde oluşan sistem, öğrencilere ait verileri velilere gerçek zamanlı sunarak takiplerini ve durumlarını rahatça izlemeye olanak sağlar. 
+
+It is a system that ensures the safety of the students and facilitates their follow-up. It allows to monitor their status in real-time by providing their parents with real-time data.
+
+## How to work
+
+Öğrenciye verilecek küçük bir BLE barındıran aparat (Bileklik, anahtarlık vb) ile takibini kolaylıkla sağlayabiliyoruz.
+
+We can easily follow up with a small BLE apparatus (Bracelet, key chain etc.) to be given to the student.
+
 ## Views
 
 ![login](https://github.com/merteroglu/Ogrenci-Takip/blob/master/img/img_2.png?raw=true "Login Page")
