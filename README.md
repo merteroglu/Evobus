@@ -19,7 +19,7 @@ We can easily follow up with a small BLE apparatus (Bracelet, key chain etc.) to
 ![login](https://github.com/merteroglu/Evobus/blob/master/img/img_2.png?raw=true "Login Page")
 ![driver-main-page](https://github.com/merteroglu/Evobus/blob/master/img/img_3.png?raw=true "Driver Main Page")
 ![driver-student-list-page](https://github.com/merteroglu/Evobus/blob/master/img/img_4.png?raw=true "Driver Student List Page")
-![parent-main-page](https://github.com/merteroglu/Evobusblob/master/img/img_5.png?raw=true "Parent Main Page")
+![parent-main-page](https://github.com/merteroglu/Evobus/blob/master/img/img_5.png?raw=true "Parent Main Page")
 ![parent-student-activity-page](https://github.com/merteroglu/Evobus/blob/master/img/img_6.png?raw=true "Parent Student Activity Page")
 
 
