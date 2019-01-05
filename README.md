@@ -16,11 +16,11 @@ We can easily follow up with a small BLE apparatus (Bracelet, key chain etc.) to
 
 ## Views
 
-![login](https://github.com/merteroglu/Evobus/blob/master/img/img_2.png?raw=true "Login Page")
-![driver-main-page](https://github.com/merteroglu/Evobus/blob/master/img/img_3.png?raw=true "Driver Main Page")
-![driver-student-list-page](https://github.com/merteroglu/Evobus/blob/master/img/img_4.png?raw=true "Driver Student List Page")
-![parent-main-page](https://github.com/merteroglu/Evobus/blob/master/img/img_5.png?raw=true "Parent Main Page")
-![parent-student-activity-page](https://github.com/merteroglu/Evobus/blob/master/img/img_6.png?raw=true "Parent Student Activity Page")
+<img border="0" alt="login" src="https://github.com/merteroglu/Evobus/blob/master/img/img_2.png?raw=true" width="30%">
+<img border="0" alt="driver main page" src="https://github.com/merteroglu/Evobus/blob/master/img/img_3.png?raw=true" width="30%">
+<img border="0" alt="driver student list page" src="https://github.com/merteroglu/Evobus/blob/master/img/img_4.png?raw=true" width="30%">
+<img border="0" alt="parent main page" src="https://github.com/merteroglu/Evobus/blob/master/img/img_5.png?raw=true" width="30%">
+<img border="0" alt="parent student activity page" src="https://github.com/merteroglu/Evobus/blob/master/img/img_6.png?raw=true" width="30%">
 
 
 ## Credits
