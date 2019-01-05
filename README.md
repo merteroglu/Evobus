@@ -16,12 +16,13 @@ We can easily follow up with a small BLE apparatus (Bracelet, key chain etc.) to
 
 ## Views
 
-<img border="0" alt="login" src="https://github.com/merteroglu/Evobus/blob/master/img/img_2.png?raw=true" width="30%">
-<img border="0" alt="driver main page" src="https://github.com/merteroglu/Evobus/blob/master/img/img_3.png?raw=true" width="30%">
-<img border="0" alt="driver student list page" src="https://github.com/merteroglu/Evobus/blob/master/img/img_4.png?raw=true" width="30%">
-<img border="0" alt="parent main page" src="https://github.com/merteroglu/Evobus/blob/master/img/img_5.png?raw=true" width="30%">
-<img border="0" alt="parent student activity page" src="https://github.com/merteroglu/Evobus/blob/master/img/img_6.png?raw=true" width="30%">
-
+<p float="left">
+<img border="0" alt="login" src="https://github.com/merteroglu/Evobus/blob/master/img/img_2.png?raw=true" width="25%">
+<img border="0" alt="driver main page" src="https://github.com/merteroglu/Evobus/blob/master/img/img_3.png?raw=true" width="25%">
+<img border="0" alt="driver student list page" src="https://github.com/merteroglu/Evobus/blob/master/img/img_4.png?raw=true" width="25%">
+<img border="0" alt="parent main page" src="https://github.com/merteroglu/Evobus/blob/master/img/img_5.png?raw=true" width="25%">
+<img border="0" alt="parent student activity page" src="https://github.com/merteroglu/Evobus/blob/master/img/img_6.png?raw=true" width="25%">
+</p>
 
 ## Credits
 
